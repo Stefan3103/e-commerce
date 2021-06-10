@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "83079840865",
+    "project_id": "e-commerce-b1037",
+    "storage_bucket": "e-commerce-b1037.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:83079840865:android:3c6221f6e77a2bd89a5620",
+        "android_client_info": {
+          "package_name": "com.StefanTomovic.shop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "83079840865-1b4t3qtcfii5f76e5d4odq6u2och9tn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtkbih9jm0E67KSk5IWXDLNxLa7RLb38A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "83079840865-1b4t3qtcfii5f76e5d4odq6u2och9tn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
