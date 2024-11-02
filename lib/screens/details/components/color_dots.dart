@@ -7,8 +7,8 @@ import '../../../size_config.dart';
 
 class ColorDots extends StatelessWidget {
   const ColorDots({
-    Key key,
-    @required this.product,
+    Key? key,
+    required this.product,
   }) : super(key: key);
 
   final Product product;
@@ -18,8 +18,8 @@ class ColorDots extends StatelessWidget {
     // Now this is fixed and only for demo
     int selectedColor = 3;
     return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.getProportionateScreenWidth(20)),
       child: Row(
         children: [
           ...List.generate(
@@ -34,7 +34,7 @@ class ColorDots extends StatelessWidget {
             icon: Icons.remove,
             press: () {},
           ),
-          SizedBox(width: getProportionateScreenWidth(20)),
+          SizedBox(width: SizeConfig.getProportionateScreenWidth(20)),
           RoundedIconBtn(
             icon: Icons.add,
             showShadow: true,
@@ -48,8 +48,8 @@ class ColorDots extends StatelessWidget {
 
 class ColorDot extends StatelessWidget {
   const ColorDot({
-    Key key,
-    @required this.color,
+    Key? key,
+    required this.color,
     this.isSelected = false,
   }) : super(key: key);
 
@@ -60,9 +60,9 @@ class ColorDot extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 2),
-      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-      height: getProportionateScreenWidth(40),
-      width: getProportionateScreenWidth(40),
+      padding: EdgeInsets.all(SizeConfig.getProportionateScreenWidth(8)),
+      height: SizeConfig.getProportionateScreenWidth(40),
+      width: SizeConfig.getProportionateScreenWidth(40),
       decoration: BoxDecoration(
         color: Colors.transparent,
         border:

@@ -4,21 +4,21 @@ import '../size_config.dart';
 
 class RoundedIconBtn extends StatelessWidget {
   const RoundedIconBtn({
-    Key key,
-    @required this.icon,
-    @required this.press,
+    Key? key,
+    required this.icon,
+    required this.press,
     this.showShadow = false,
   }) : super(key: key);
 
   final IconData icon;
-  final GestureTapCancelCallback press;
+  final VoidCallback press;
   final bool showShadow;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionateScreenWidth(40),
-      width: getProportionateScreenWidth(40),
+      height: SizeConfig.getProportionateScreenWidth(40),
+      width: SizeConfig.getProportionateScreenWidth(40),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [
@@ -30,12 +30,16 @@ class RoundedIconBtn extends StatelessWidget {
             ),
         ],
       ),
-      child: FlatButton(
-        padding: EdgeInsets.zero,
-        color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+          elevation: 0,
+        ),
         onPressed: press,
-        child: Icon(icon),
+        child: Icon(icon, color: Colors.black),
       ),
     );
   }

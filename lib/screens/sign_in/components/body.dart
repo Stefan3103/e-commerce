@@ -5,14 +5,17 @@ import '../../../size_config.dart';
 import 'sign_form.dart';
 
 class Body extends StatelessWidget {
+  const Body({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.getProportionateScreenWidth(20),
+          ),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -21,16 +24,16 @@ class Body extends StatelessWidget {
                   "Welcome Back",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    fontSize: SizeConfig.getProportionateScreenWidth(28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
+                const Text(
                   "Sign in with your email and password  \nor continue with social media",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
+                const SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -39,18 +42,10 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/google-icon.svg",
                       press: () {},
                     ),
-                    // SocalCard(
-                    //   icon: "assets/icons/facebook-2.svg",
-                    //   press: () {},
-                    // ),
-                    // SocalCard(
-                    //   icon: "assets/icons/twitter.svg",
-                    //   press: () {},
-                    // ),
                   ],
                 ),
-                SizedBox(height: getProportionateScreenHeight(20)),
-                NoAccountText(),
+                SizedBox(height: SizeConfig.getProportionateScreenHeight(20)),
+                NoAccountText(), // Removed const keyword
               ],
             ),
           ),

@@ -5,7 +5,7 @@ import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
   const SpecialOffers({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,14 +13,14 @@ class SpecialOffers extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: "Special for you",
             press: () {},
           ),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: SizeConfig.getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -37,7 +37,7 @@ class SpecialOffers extends StatelessWidget {
                 numOfBrands: 24,
                 press: () {},
               ),
-              SizedBox(width: getProportionateScreenWidth(20)),
+              SizedBox(width: SizeConfig.getProportionateScreenWidth(20)),
             ],
           ),
         ),
@@ -48,11 +48,11 @@ class SpecialOffers extends StatelessWidget {
 
 class SpecialOfferCard extends StatelessWidget {
   const SpecialOfferCard({
-    Key key,
-    @required this.category,
-    @required this.image,
-    @required this.numOfBrands,
-    @required this.press,
+    Key? key,
+    required this.category,
+    required this.image,
+    required this.numOfBrands,
+    required this.press,
   }) : super(key: key);
 
   final String category, image;
@@ -62,12 +62,13 @@ class SpecialOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding:
+          EdgeInsets.only(left: SizeConfig.getProportionateScreenWidth(20)),
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(242),
-          height: getProportionateScreenWidth(100),
+          width: SizeConfig.getProportionateScreenWidth(242),
+          height: SizeConfig.getProportionateScreenWidth(100),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(
@@ -90,8 +91,8 @@ class SpecialOfferCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(15.0),
-                    vertical: getProportionateScreenWidth(10),
+                    horizontal: SizeConfig.getProportionateScreenWidth(15.0),
+                    vertical: SizeConfig.getProportionateScreenWidth(10),
                   ),
                   child: Text.rich(
                     TextSpan(
@@ -100,7 +101,8 @@ class SpecialOfferCard extends StatelessWidget {
                         TextSpan(
                           text: "$category\n",
                           style: TextStyle(
-                            fontSize: getProportionateScreenWidth(18),
+                            fontSize:
+                                SizeConfig.getProportionateScreenWidth(18),
                             fontWeight: FontWeight.bold,
                           ),
                         ),

@@ -6,10 +6,10 @@ import '../../../size_config.dart';
 
 class IconBtnWithCounter extends StatelessWidget {
   const IconBtnWithCounter({
-    Key key,
-    @required this.svgSrc,
+    Key? key,
+    required this.svgSrc,
     this.numOfitem = 0,
-    @required this.press,
+    required this.press,
   }) : super(key: key);
 
   final String svgSrc;
@@ -22,12 +22,12 @@ class IconBtnWithCounter extends StatelessWidget {
       borderRadius: BorderRadius.circular(100),
       onTap: press,
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(12)),
-            height: getProportionateScreenWidth(46),
-            width: getProportionateScreenWidth(46),
+            padding: EdgeInsets.all(SizeConfig.getProportionateScreenWidth(12)),
+            height: SizeConfig.getProportionateScreenWidth(46),
+            width: SizeConfig.getProportionateScreenWidth(46),
             decoration: BoxDecoration(
               color: kSecondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
@@ -39,8 +39,8 @@ class IconBtnWithCounter extends StatelessWidget {
               top: -3,
               right: 0,
               child: Container(
-                height: getProportionateScreenWidth(16),
-                width: getProportionateScreenWidth(16),
+                height: SizeConfig.getProportionateScreenWidth(16),
+                width: SizeConfig.getProportionateScreenWidth(16),
                 decoration: BoxDecoration(
                   color: Color(0xFFFF4848),
                   shape: BoxShape.circle,
@@ -50,7 +50,7 @@ class IconBtnWithCounter extends StatelessWidget {
                   child: Text(
                     "$numOfitem",
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(10),
+                      fontSize: SizeConfig.getProportionateScreenWidth(10),
                       height: 1,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,

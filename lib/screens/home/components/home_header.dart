@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
@@ -7,27 +6,25 @@ import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
-    Key key,
+    Key? key,
+    required this.onSearch,
   }) : super(key: key);
+
+  final Function(String) onSearch;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.getProportionateScreenWidth(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SearchField(),
+          SearchField(onChanged: onSearch),
           IconBtnWithCounter(
             svgSrc: "assets/icons/Cart Icon.svg",
-            // press: () => Navigator.pushNamed(context, CartScreen.routeName),
+            press: () {}, // Add this line
           ),
-          // IconBtnWithCounter(
-          //   svgSrc: "assets/icons/User.svg",
-          //   numOfitem: 0,
-          //   press: () {},
-          // ),
         ],
       ),
     );

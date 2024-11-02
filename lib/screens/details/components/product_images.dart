@@ -6,9 +6,9 @@ import '../../../size_config.dart';
 
 class ProductImages extends StatefulWidget {
   const ProductImages({
-    Key key,
-    @required this.product,
-  }) : super(key: key);
+    super.key,
+    required this.product,
+  });
 
   final Product product;
 
@@ -23,23 +23,23 @@ class _ProductImagesState extends State<ProductImages> {
     return Column(
       children: [
         SizedBox(
-          width: getProportionateScreenWidth(238),
+          width: SizeConfig.getProportionateScreenWidth(238),
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.image[selectedImage]),
+              child: Image.network(widget.product.image),
             ),
           ),
         ),
-        // SizedBox(height: getProportionateScreenWidth(20)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ...List.generate(widget.product.image.length,
-                (index) => buildSmallProductPreview(index)),
-          ],
-        )
+        // SizedBox(height: SizeConfig.getProportionateScreenWidth(20)),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     ...List.generate(widget.product.image.length,
+        //         (index) => buildSmallProductPreview(index)),
+        //   ],
+        // )
       ],
     );
   }
@@ -52,11 +52,11 @@ class _ProductImagesState extends State<ProductImages> {
         });
       },
       child: AnimatedContainer(
-        duration: defaultDuration,
+        duration: kDefaultDuration,
         margin: EdgeInsets.only(right: 15),
         padding: EdgeInsets.all(8),
-        height: getProportionateScreenWidth(48),
-        width: getProportionateScreenWidth(48),
+        height: SizeConfig.getProportionateScreenWidth(48),
+        width: SizeConfig.getProportionateScreenWidth(48),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),

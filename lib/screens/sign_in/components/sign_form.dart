@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/components/custom_surfix_icon.dart';
+import 'package:shop_app/components/custom_suffix_icon.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
@@ -11,6 +11,8 @@ import '../../../size_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignForm extends StatefulWidget {
+  const SignForm({Key? key}) : super(key: key);
+
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -18,31 +20,35 @@ class SignForm extends StatefulWidget {
 class _SignFormState extends State<SignForm> {
   final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
-  bool remember = false;
-  final List<String> errors = [];
   final _fireStore = FirebaseFirestore.instance.collection("user information");
-  void addError({String error}) {
-    if (!errors.contains(error))
+  final List<String> errors = [];
+
+  late String email;
+  late String password;
+  bool remember = false;
+
+  void addError({required String error}) {
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
-  void removeError({String error}) {
-    if (errors.contains(error))
+  void removeError({required String error}) {
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
-  void getDocuments(String documentID) async {
+  Future<void> getDocuments(String documentID) async {
     DocumentSnapshot document = await _fireStore.doc(documentID).get();
 
-    Map<String, dynamic> data = document.data();
-    //Provjeravamo da li korsinik popunio podatke pri registraciji
-    if (data['first name'] == null ||
+    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+    if (data == null ||
+        data['first name'] == null ||
         data['last name'] == null ||
         data['address'] == null) {
       Navigator.pushNamed(context, CompleteProfileScreen.routeName);
@@ -58,9 +64,9 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: SizeConfig.getProportionateScreenHeight(30)),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: SizeConfig.getProportionateScreenHeight(30)),
           Row(
             children: [
               Checkbox(
@@ -68,16 +74,16 @@ class _SignFormState extends State<SignForm> {
                 activeColor: kPrimaryColor,
                 onChanged: (value) {
                   setState(() {
-                    remember = value;
+                    remember = value ?? false;
                   });
                 },
               ),
-              Text("Remember me"),
-              Spacer(),
+              const Text("Remember me"),
+              const Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
-                child: Text(
+                child: const Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
@@ -85,29 +91,26 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: SizeConfig.getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Sign In",
             press: () async {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
                 if (errors.contains(kWrongSignIn)) {
                   removeError(error: kWrongSignIn);
                 }
                 try {
-                  final user = await _auth.signInWithEmailAndPassword(
+                  final userCredential = await _auth.signInWithEmailAndPassword(
                       email: email, password: password);
-                  final currentUser = _auth.currentUser;
-                  getDocuments(currentUser.uid);
-                  // if (user != null) {
-                  //   // if all are valid then go to success screen
-                  //   Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-                  // }
+                  if (userCredential.user != null) {
+                    await getDocuments(userCredential.user!.uid);
+                  }
                 } catch (e) {
                   print(e);
-                  if (e.code == "user-not-found" ||
-                      e.code == "wrong-password") {
-                    if (!errors.contains(kWrongSignIn)) {
+                  if (e is FirebaseAuthException) {
+                    if (e.code == "user-not-found" ||
+                        e.code == "wrong-password") {
                       addError(error: kWrongSignIn);
                     }
                   }
@@ -123,17 +126,16 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      onSaved: (newValue) => password = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         } else if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
-        return null;
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value == null || value.isEmpty) {
           addError(error: kPassNullError);
           return "";
         } else if (value.length < 8) {
@@ -145,10 +147,8 @@ class _SignFormState extends State<SignForm> {
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
@@ -156,17 +156,16 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => email = newValue!,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
         } else if (emailValidatorRegExp.hasMatch(value)) {
           removeError(error: kInvalidEmailError);
         }
-        return null;
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value == null || value.isEmpty) {
           addError(error: kEmailNullError);
           return "";
         } else if (!emailValidatorRegExp.hasMatch(value)) {
@@ -178,10 +177,8 @@ class _SignFormState extends State<SignForm> {
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        suffixIcon: CustomSuffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
     );
   }

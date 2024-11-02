@@ -7,15 +7,15 @@ import '../../../size_config.dart';
 
 class CheckoutCard extends StatelessWidget {
   const CheckoutCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: getProportionateScreenWidth(15),
-        horizontal: getProportionateScreenWidth(30),
+        vertical: SizeConfig.getProportionateScreenWidth(15),
+        horizontal: SizeConfig.getProportionateScreenWidth(30),
       ),
       // height: 174,
       decoration: BoxDecoration(
@@ -41,8 +41,8 @@ class CheckoutCard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
+                  height: SizeConfig.getProportionateScreenWidth(40),
+                  width: SizeConfig.getProportionateScreenWidth(40),
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(10),
@@ -59,7 +59,7 @@ class CheckoutCard extends StatelessWidget {
                 )
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(20)),
+            SizedBox(height: SizeConfig.getProportionateScreenHeight(20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +75,7 @@ class CheckoutCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: getProportionateScreenWidth(190),
+                  width: SizeConfig.getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
                     press: () {},

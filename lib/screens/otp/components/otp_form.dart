@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,16 +16,16 @@ class OtpForm extends StatefulWidget {
 }
 
 class _OtpFormState extends State<OtpForm> {
-  FocusNode pin2FocusNode;
-  FocusNode pin3FocusNode;
-  FocusNode pin4FocusNode;
-  FocusNode pin5FocusNode;
-  FocusNode pin6FocusNode;
+  late FocusNode pin2FocusNode;
+  late FocusNode pin3FocusNode;
+  late FocusNode pin4FocusNode;
+  late FocusNode pin5FocusNode;
+  late FocusNode pin6FocusNode;
   List<String> pinList = [];
   String pin = "";
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
     pin2FocusNode = FocusNode();
     pin3FocusNode = FocusNode();
@@ -33,23 +33,27 @@ class _OtpFormState extends State<OtpForm> {
     pin5FocusNode = FocusNode();
     pin6FocusNode = FocusNode();
 
+    _verifyPhoneNumber();
+  }
+
+  Future<void> _verifyPhoneNumber() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: '+38267321451',
       verificationCompleted: (PhoneAuthCredential credential) {},
       verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int resendToken) {},
+      codeSent: (String verificationId, int? resendToken) {},
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
   }
 
   @override
   void dispose() {
-    super.dispose();
     pin2FocusNode.dispose();
     pin3FocusNode.dispose();
     pin4FocusNode.dispose();
     pin5FocusNode.dispose();
     pin6FocusNode.dispose();
+    super.dispose();
   }
 
   void nextField(String value, FocusNode focusNode) {
@@ -68,17 +72,15 @@ class _OtpFormState extends State<OtpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
-                  textAlignVertical: TextAlignVertical.top,
                   autofocus: true,
-                  // obscureText: true,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -89,17 +91,16 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
                   focusNode: pin2FocusNode,
-                  textAlignVertical: TextAlignVertical.top,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -110,17 +111,16 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
-                  textAlignVertical: TextAlignVertical.top,
                   focusNode: pin3FocusNode,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -131,17 +131,16 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
-                  textAlignVertical: TextAlignVertical.top,
                   focusNode: pin4FocusNode,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -152,17 +151,16 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
-                  textAlignVertical: TextAlignVertical.top,
                   focusNode: pin5FocusNode,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -173,17 +171,16 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(50),
-                height: getProportionateScreenHeight(60),
+                width: SizeConfig.getProportionateScreenWidth(50),
+                height: SizeConfig.getProportionateScreenHeight(60),
                 child: TextFormField(
-                  inputFormatters: [new LengthLimitingTextInputFormatter(1)],
-                  textAlignVertical: TextAlignVertical.top,
                   focusNode: pin6FocusNode,
+                  inputFormatters: [LengthLimitingTextInputFormatter(1)],
                   obscureText: true,
                   style: TextStyle(fontSize: 24),
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  decoration: otpInputDecoration,
+                  decoration: otpInputDecoration(context),
                   onChanged: (value) {
                     setState(() {
                       pin = pin + value;
@@ -191,7 +188,7 @@ class _OtpFormState extends State<OtpForm> {
                     print(pin);
                     if (value.length == 1) {
                       pin6FocusNode.unfocus();
-                      //Then you need to check is the code is correct or not
+                      // Then you need to check if the code is correct or not
                     }
                   },
                 ),

@@ -10,15 +10,15 @@ class Body extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.getProportionateScreenWidth(20)),
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
                 "OTP Verification",
-                style: headingStyle,
+                style: headingStyle(context),
               ),
               Text("We sent your code to +1 898 860 ***"),
               buildTimer(),
@@ -49,7 +49,7 @@ class Body extends StatelessWidget {
           tween: Tween(begin: 30.0, end: 0.0),
           duration: Duration(seconds: 30),
           builder: (_, value, child) => Text(
-            "00:${value.toInt()}",
+            "00:${value != null ? (value as num).toInt() : 0}",
             style: TextStyle(color: kPrimaryColor),
           ),
         ),

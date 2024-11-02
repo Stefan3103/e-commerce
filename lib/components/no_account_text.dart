@@ -6,7 +6,7 @@ import '../size_config.dart';
 
 class NoAccountText extends StatelessWidget {
   const NoAccountText({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,16 +15,18 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don’t have an account? ",
-          style: TextStyle(fontSize: getProportionateScreenWidth(16)),
+          "Don't have an account? ",
+          style:
+              TextStyle(fontSize: SizeConfig.getProportionateScreenWidth(16)),
         ),
         GestureDetector(
           onTap: () => Navigator.pushNamed(context, SignUpScreen.routeName),
           child: Text(
             "Sign Up",
             style: TextStyle(
-                fontSize: getProportionateScreenWidth(16),
-                color: kPrimaryColor),
+              fontSize: SizeConfig.getProportionateScreenWidth(16),
+              color: kPrimaryColor,
+            ),
           ),
         ),
       ],
