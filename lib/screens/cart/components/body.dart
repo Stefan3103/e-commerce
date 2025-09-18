@@ -8,6 +8,8 @@ import 'cart_card.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shop_app/models/Product.dart';
 
+var totalprice;
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -79,7 +81,7 @@ class _BodyState extends State<Body> {
                     .doc(prodMap.keys.toList()[index].toString())
                     .get(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  if (!snapshot.hasData) {
+                  if (!snapshot.hasData){
                     return Container(
                       height: 200.0,
                       alignment: Alignment.center,
